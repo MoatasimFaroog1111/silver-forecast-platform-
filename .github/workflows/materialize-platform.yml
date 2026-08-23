@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "bootstrap_bundle_v3/READY"
+      - "bootstrap_bundle_v4/READY"
 
 permissions:
   contents: write
@@ -22,7 +22,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cat bootstrap_bundle_v3/part_*.txt > /tmp/silver-platform.tar.gz.b64
+          cat bootstrap_bundle_v4/part_*.txt > /tmp/silver-platform.tar.gz.b64
           echo "5e30f369f45a2474276c67ec876631f37b866c3a0e0982429faafa528df719fa  /tmp/silver-platform.tar.gz.b64" | sha256sum -c -
           base64 -d /tmp/silver-platform.tar.gz.b64 > /tmp/silver-platform.tar.gz
           echo "cccfe65fd9e6568ff0f46cd7b0140dd04d4a3addcf3ee27d685a2bfd66bd224d  /tmp/silver-platform.tar.gz" | sha256sum -c -
