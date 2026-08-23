@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "bootstrap_bundle_v2/READY"
+      - "bootstrap_bundle_v3/READY"
 
 permissions:
   contents: write
@@ -18,16 +18,26 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Reassemble and verify deployable bundle
+      - name: Reassemble and verify source bundle
         shell: bash
         run: |
           set -euo pipefail
-          cat bootstrap_bundle_v2/part_*.txt > /tmp/silver-platform.tar.gz.b64
-          echo "da6f50129c0ea2985bf6ae2994b55f912be43d51804a9a975ba49c526de7061b  /tmp/silver-platform.tar.gz.b64" | sha256sum -c -
+          cat bootstrap_bundle_v3/part_*.txt > /tmp/silver-platform.tar.gz.b64
+          echo "5e30f369f45a2474276c67ec876631f37b866c3a0e0982429faafa528df719fa  /tmp/silver-platform.tar.gz.b64" | sha256sum -c -
           base64 -d /tmp/silver-platform.tar.gz.b64 > /tmp/silver-platform.tar.gz
-          echo "5fa1b1bf48a6bd28765f26b84cc56355f802b0e3fbee4d4705d81cde77bd57ae  /tmp/silver-platform.tar.gz" | sha256sum -c -
+          echo "cccfe65fd9e6568ff0f46cd7b0140dd04d4a3addcf3ee27d685a2bfd66bd224d  /tmp/silver-platform.tar.gz" | sha256sum -c -
           mkdir -p /tmp/silver-platform
           tar -xzf /tmp/silver-platform.tar.gz -C /tmp/silver-platform
+
+      - name: Rebuild exact persisted models once
+        shell: bash
+        working-directory: /tmp/silver-platform
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m silver_forecast.model_registry.rebuild_persisted_forecast_models
+          test "$(find persisted_forecast_models -name '*D__CatBoost_Return.joblib' | wc -l)" -eq 6
 
       - name: Replace bootstrap tree with verified product
         shell: bash
