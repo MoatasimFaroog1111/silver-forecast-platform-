@@ -1,0 +1,42 @@
+name: Materialize Silver Forecast Platform
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "bootstrap_bundle_v2/READY"
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout bootstrap repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reassemble and verify deployable bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat bootstrap_bundle_v2/part_*.txt > /tmp/silver-platform.tar.gz.b64
+          echo "da6f50129c0ea2985bf6ae2994b55f912be43d51804a9a975ba49c526de7061b  /tmp/silver-platform.tar.gz.b64" | sha256sum -c -
+          base64 -d /tmp/silver-platform.tar.gz.b64 > /tmp/silver-platform.tar.gz
+          echo "5fa1b1bf48a6bd28765f26b84cc56355f802b0e3fbee4d4705d81cde77bd57ae  /tmp/silver-platform.tar.gz" | sha256sum -c -
+          mkdir -p /tmp/silver-platform
+          tar -xzf /tmp/silver-platform.tar.gz -C /tmp/silver-platform
+
+      - name: Replace bootstrap tree with verified product
+        shell: bash
+        run: |
+          set -euo pipefail
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -a /tmp/silver-platform/. .
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Materialize complete Silver Forecast Platform"
+          git push origin HEAD:main
