@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "stage": "Stage 9 - Feature Selection + Retraining",
+  "development_dataset": {
+    "rows": 2223,
+    "date_start": "2017-02-08",
+    "date_end": "2025-12-09",
+    "note": "All currently available historical observations are development data now; the previous final-test period is no longer treated as an untouched holdout after Stage 8 diagnostics."
+  },
+  "feature_selection": {
+    "source_features": 99,
+    "selected_features": 63,
+    "dropped_features": 36,
+    "targets_used_for_selection": false,
+    "selected_feature_file": "/mnt/data/silver_stage9_selected_features.json"
+  },
+  "retraining": {
+    "horizons_sessions": [1,2,3,7,14,30],
+    "candidate_models": ["Ridge_Return","ElasticNet_Return","Huber_Return","ExtraTrees_Return","HistGB_Return","XGBoost_Return","LightGBM_Return","CatBoost_Return","Ridge_Direct"],
+    "models_per_horizon": 9,
+    "persisted_model_artifacts": 54,
+    "all_artifacts_reloadable": true,
+    "all_sample_predictions_finite": true,
+    "in_sample_metrics_used_for_model_selection": false
+  },
+  "anti_leakage": {"Target_columns_in_features":false,"Date_in_features":false,"feature_selection_used_targets":false,"future_or_fresh_holdout_used_for_selection":false,"old_final_test_reused_as_final_test":false},
+  "important_scientific_rule": "No model is declared champion in Stage 9. In-sample metrics are sanity checks only. Candidate ranking must come from the next Purged Walk-Forward Backtesting stage. A fresh future holdout is required after model/ensemble selection.",
+  "next_stage": "Purged Walk-Forward Backtesting using the fixed 63-feature set and the 9 candidate model families."
+}

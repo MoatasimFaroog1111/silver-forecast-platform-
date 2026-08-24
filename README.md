@@ -44,7 +44,7 @@ SQLite is the zero-configuration local default. Set `DATABASE_URL` to Railway Po
 
 ## Models
 
-Runtime includes the six active CatBoost challenger artifacts required by production. The large 54-candidate Stage-9 research archive is intentionally not versioned in GitHub or shipped in the Docker image; the deployable product is complete without it. A manifest is retained under `forecast_model_archive/`.
+Runtime includes the six active CatBoost challenger artifacts. The 54-candidate Stage-9 research archive is intentionally excluded from the deployable Git tree because it is not loaded at runtime; `forecast_model_archive/README.md` documents that boundary.
 
 ## Scientific integrity
 

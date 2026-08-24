@@ -1,0 +1,116 @@
+{
+  "status": "PASS",
+  "stage": "Time-Series Split",
+  "source": "/mnt/data/silver_prices_labeled_model_ready_USD_per_KG.csv",
+  "method": {
+    "chronological": true,
+    "shuffle": false,
+    "raw_ratios": {
+      "train": 0.7,
+      "validation": 0.15,
+      "test": 0.15
+    },
+    "purge_sessions_at_each_boundary": 30,
+    "reason_for_purge": "The longest target horizon is 30 trading sessions. Purging prevents labels in an earlier split from using prices that occur inside the next split."
+  },
+  "counts": {
+    "TRAIN": 1568,
+    "PURGED_TRAIN_VAL": 30,
+    "VALIDATION": 312,
+    "PURGED_VAL_TEST": 30,
+    "TEST": 343
+  },
+  "effective_sets": {
+    "train": {
+      "rows": 1568,
+      "start_date": "2016-11-09",
+      "end_date": "2023-02-06",
+      "sha256": "05cceed0a00cfe391f5fed93df8cd61a5396ae3c66821799287c1fa76814e5f1"
+    },
+    "validation": {
+      "rows": 312,
+      "start_date": "2023-03-22",
+      "end_date": "2024-06-17",
+      "sha256": "dee4a86f52dbaf935f3a363e4112667759cee4120112f82b3a5a6bfbde3a3966"
+    },
+    "test": {
+      "rows": 343,
+      "start_date": "2024-08-01",
+      "end_date": "2025-12-09",
+      "sha256": "3a824484798d241de59c8d060b34f47608f7882c50e06e729616ec38248b889a"
+    }
+  },
+  "boundary_dates": {
+    "validation_first_date": "2023-03-22",
+    "test_first_date": "2024-08-01"
+  },
+  "leakage_audit": {
+    "train_targets_crossing_into_validation": 0,
+    "validation_targets_crossing_into_test": 0,
+    "result": "PASS"
+  },
+  "expanding_window_cv_folds": [
+    {
+      "fold": 1,
+      "train_rows": 870,
+      "train_start": "2016-11-09",
+      "train_end": "2020-04-29",
+      "purged_rows": 30,
+      "validation_rows": 180,
+      "validation_start": "2020-06-12",
+      "validation_end": "2021-03-01",
+      "30D_target_crossings": 0
+    },
+    {
+      "fold": 2,
+      "train_rows": 1050,
+      "train_start": "2016-11-09",
+      "train_end": "2021-01-14",
+      "purged_rows": 30,
+      "validation_rows": 180,
+      "validation_start": "2021-03-02",
+      "validation_end": "2021-11-12",
+      "30D_target_crossings": 0
+    },
+    {
+      "fold": 3,
+      "train_rows": 1230,
+      "train_start": "2016-11-09",
+      "train_end": "2021-10-01",
+      "purged_rows": 30,
+      "validation_rows": 180,
+      "validation_start": "2021-11-15",
+      "validation_end": "2022-08-03",
+      "30D_target_crossings": 0
+    },
+    {
+      "fold": 4,
+      "train_rows": 1410,
+      "train_start": "2016-11-09",
+      "train_end": "2022-06-21",
+      "purged_rows": 30,
+      "validation_rows": 180,
+      "validation_start": "2022-08-04",
+      "validation_end": "2023-04-21",
+      "30D_target_crossings": 0
+    },
+    {
+      "fold": 5,
+      "train_rows": 1590,
+      "train_start": "2016-11-09",
+      "train_end": "2023-03-09",
+      "purged_rows": 30,
+      "validation_rows": 180,
+      "validation_start": "2023-04-24",
+      "validation_end": "2024-01-09",
+      "30D_target_crossings": 0
+    }
+  ],
+  "notes": [
+    "TEST remains untouched for final evaluation only.",
+    "VALIDATION is for model selection/hyperparameter tuning.",
+    "TRAIN is for fitting candidate models.",
+    "Purged boundary rows are intentionally excluded from fitting/evaluation to enforce temporal integrity.",
+    "Cross-validation folds are expanding-window and also use a 30-session purge."
+  ]
+}

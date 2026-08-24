@@ -1,0 +1,21 @@
+{
+  "format": "tar+xz+base64-parts-v1",
+  "archive_sha256": "6a58dffa4172e4283376cab5bac3a0d601c2ea6fd859536cb0517c2e20f58635",
+  "decoded_tar_sha256": "54a49563d93d22218beb87de28fa01c7920a8f1965994426010108571197c73d",
+  "part_count": 275,
+  "part_size": 2000,
+  "last_part_size": 1948,
+  "targets": [
+    "persisted_forecast_models/1D__CatBoost_Return.joblib",
+    "persisted_forecast_models/2D__CatBoost_Return.joblib",
+    "persisted_forecast_models/3D__CatBoost_Return.joblib",
+    "persisted_forecast_models/7D__CatBoost_Return.joblib",
+    "persisted_forecast_models/14D__CatBoost_Return.joblib",
+    "persisted_forecast_models/30D__CatBoost_Return.joblib",
+    "historical_market_data/silver_ohlcv_usd_per_kg.csv",
+    "verified_backtesting/silver_stage10_walk_forward_all_folds.csv",
+    "verified_backtesting/silver_stage10_walk_forward_summary.csv",
+    "verified_reports/silver_error_analysis_segments.csv",
+    "verified_reports/silver_error_analysis_extreme_cases.csv"
+  ]
+}
