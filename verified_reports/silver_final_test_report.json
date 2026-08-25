@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "stage": "Final Untouched Test Evaluation",
+  "test_used_now": true,
+  "test_was_not_used_for_fit_or_weight_selection": true,
+  "test_period": {"rows":343,"start":"2024-08-01","end":"2025-12-09"},
+  "final_fit_period": {"rows":1910,"start":"2016-11-09","end":"2024-06-17","30D_target_crossings_into_test":0},
+  "frozen_before_test": {"guarded_primary_config":"/mnt/data/silver_guarded_ensemble_config.json","model_hyperparameters":"same as Stage 4/5/6","shadow_weights":"same as Stage 6","auxiliary_direction_model_by_horizon":"same as Stage 6"},
+  "verdicts": {
+    "1D": {"primary_MAE":17.387834410342926,"primary_MAPE_pct":1.4642329253690183,"primary_R2":0.9882025636133425,"shadow_MAE":17.38422421874944,"shadow_MAPE_pct":1.4638456669662494,"shadow_MAE_change_vs_primary_pct":0.02076274427444988,"best_test_model_for_analysis_only":"Shadow_Convex_Ensemble","best_test_MAE_for_analysis_only":17.38422421874944,"selection_changed_after_test":false},
+    "2D": {"primary_MAE":25.72800188836317,"primary_MAPE_pct":2.150098426826431,"primary_R2":0.9763054860334527,"shadow_MAE":25.740934439034206,"shadow_MAPE_pct":2.150889650474837,"shadow_MAE_change_vs_primary_pct":-0.05026644015011744,"best_test_model_for_analysis_only":"Primary_Guarded","best_test_MAE_for_analysis_only":25.72800188836317,"selection_changed_after_test":false},
+    "3D": {"primary_MAE":31.587687418873315,"primary_MAPE_pct":2.629258575057477,"primary_R2":0.9639363290992642,"shadow_MAE":31.587687418873315,"shadow_MAPE_pct":2.629258575057477,"shadow_MAE_change_vs_primary_pct":0.0,"best_test_model_for_analysis_only":"Primary_Guarded","best_test_MAE_for_analysis_only":31.587687418873315,"selection_changed_after_test":false},
+    "7D": {"primary_MAE":49.97829071494519,"primary_MAPE_pct":4.026888389967471,"primary_R2":0.9263762322100572,"shadow_MAE":50.21174880006208,"shadow_MAPE_pct":4.041884639118037,"shadow_MAE_change_vs_primary_pct":-0.4671189866184877,"best_test_model_for_analysis_only":"Primary_Guarded","best_test_MAE_for_analysis_only":49.97829071494519,"selection_changed_after_test":false},
+    "14D": {"primary_MAE":78.56620927460045,"primary_MAPE_pct":5.842188933736338,"primary_R2":0.8483393650126769,"shadow_MAE":81.30837852831917,"shadow_MAPE_pct":6.004386588306494,"shadow_MAE_change_vs_primary_pct":-3.490265444950296,"best_test_model_for_analysis_only":"Primary_Guarded","best_test_MAE_for_analysis_only":78.56620927460045,"selection_changed_after_test":false},
+    "30D": {"primary_MAE":154.03920017925185,"primary_MAPE_pct":9.494447738668471,"primary_R2":0.6120346346786959,"shadow_MAE":157.3116265119239,"shadow_MAPE_pct":9.681881990374617,"shadow_MAE_change_vs_primary_pct":-2.1244114023339473,"best_test_model_for_analysis_only":"Primary_Guarded","best_test_MAE_for_analysis_only":154.03920017925185,"selection_changed_after_test":false}
+  },
+  "selection_policy": "No model or ensemble weights were changed after inspecting Test. Any best-on-Test model is reported for analysis only and is not promoted."
+}

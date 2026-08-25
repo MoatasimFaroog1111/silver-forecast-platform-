@@ -1,0 +1,8 @@
+{
+  "status": "PASS_WITH_NOTE",
+  "stage": "Cleaning and verification",
+  "dataset": {"rows":2313,"columns":35,"start_date":"2016-11-09","end_date":"2026-01-23","unit":"USD per kilogram","sha256":"0047ac1832362372cb66aebfb4e896148407b94e64df890e4125e80e5790f19d"},
+  "structural_validation": {"missing_cells":0,"duplicate_dates":0,"dates_sorted_ascending":true,"ohlc_integrity_issues":0,"negative_volume_rows":0,"zero_volume_rows":141},
+  "cleaning_actions": ["Preserved all 2,313 observations.","Normalized dates and numeric serialization.","Confirmed chronological ordering and unique dates.","No imputation or synthetic values were introduced.","Zero-volume rows were retained and flagged instead of silently deleted.","No price outlier clipping was performed."],
+  "note": "141 zero-volume rows remain intentionally. They should be evaluated during feature selection/modeling rather than removed during cleaning."
+}

@@ -1,0 +1,131 @@
+- .dockerignore
+- .env.example
+- .gitignore
+- ARCHITECTURE.md
+- DEPLOYMENT.md
+- Dockerfile
+- LOCAL_VERIFICATION.md
+- MODEL_CARD.md
+- README.md
++ forecast_model_archive
+  - README.md
++ historical_market_data
+  - silver_ohlcv_usd_per_kg.csv
++ persisted_forecast_models
+  - 14D__CatBoost_Return.joblib
+  - 1D__CatBoost_Return.joblib
+  - 2D__CatBoost_Return.joblib
+  - 30D__CatBoost_Return.joblib
+  - 3D__CatBoost_Return.joblib
+  - 7D__CatBoost_Return.joblib
+  - model_manifest.json
++ prediction_portal
+  + data_quality
+    - data_quality.js
+  + forecast_api
+    - forecast_api_client.js
+  + forecast_history
+    - forecast_history.js
+  + forecast_models
+    - forecast_models.js
+  + historical_reports
+    - historical_reports.js
+    - report_downloads.js
+  - index.html
+  + live_forecasts
+    - live_forecasts.js
+  + navigation
+    - forecast_navigation.js
+  + overview
+    - forecast_overview.js
+  + platform_settings
+    - platform_settings.js
+  - silver_forecast_portal.js
+  - silver_forecast_theme.css
+  + walk_forward_backtesting
+    - walk_forward_backtesting.js
+- pyproject.toml
+- railway.toml
+- requirements.txt
++ runtime_state
+  - .gitkeep
++ silver_forecast
+  - __init__.py
+  + backtesting
+    - __init__.py
+    - walk_forward_result_catalog.py
+  + feature_engineering
+    - __init__.py
+    - calculate_forecast_features.py
+    - selected_forecast_features.json
+    - selected_forecast_features.py
+    - validate_feature_vector.py
+  + forecast_history
+    - __init__.py
+    - sql_forecast_history.py
+  + forecasting
+    - __init__.py
+    - forecast_policy.py
+    - forecast_result.py
+    - predict_silver_price.py
+  + http_api
+    - __init__.py
+    - application.py
+    - build_platform_context.py
+    - platform_context.py
+    - request_contracts.py
+  + market_history
+    - __init__.py
+    - latest_market_price.py
+    - market_observation.py
+    - sql_market_history.py
+  + model_registry
+    - __init__.py
+    - forecast_model_catalog.py
+    - load_registered_model.py
+    - registered_forecast_model.py
+  + persistent_state
+    - __init__.py
+    - database_connection.py
+    - database_schema.py
+  + platform_configuration
+    - __init__.py
+    - runtime_settings.py
+  + prediction_accuracy
+    - __init__.py
+    - price_accuracy.py
+  + reporting
+    - __init__.py
+    - historical_market_report.py
+    - report_catalog.py
++ tests
+  + architecture
+    - test_screaming_architecture.py
+  + end_to_end
+    - test_prediction_journey.py
+  + feature_engineering
+    - test_feature_reproduction.py
+  + http_api
+    - test_forecast_api.py
+  + model_registry
+    - test_active_models.py
++ verified_backtesting
+  - silver_stage10_ensemble_shortlist.csv
+  - silver_stage10_walk_forward_all_folds.csv
+  - silver_stage10_walk_forward_report.json
+  - silver_stage10_walk_forward_summary.csv
++ verified_reports
+  - feature_reference_latest.json
+  - silver_error_analysis_extreme_cases.csv
+  - silver_error_analysis_segments.csv
+  - silver_final_test_report.json
+  - silver_final_test_summary.csv
+  - silver_prices_cleaning_verification_report.json
+  - silver_prices_labeling_report.json
+  - silver_stage8_feature_manifest.csv
+  - silver_stage8_feature_quality_report.json
+  - silver_stage8_high_correlation_pairs.csv
+  - silver_stage9_feature_pruning_log.csv
+  - silver_stage9_retraining_report.json
+  - silver_stage9_selected_features.csv
+  - silver_time_series_split_report.json

@@ -1,0 +1,66 @@
+Feature,Category,Formula,Causal,Uses_Target
+Return_3D_Pct,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Return_5D_Pct,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Return_10D_Pct,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Return_20D_Pct,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Return_60D_Pct,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Log_Return_1D,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Return_Mean_5D_Pct,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Return_Std_5D_Pct,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Positive_Return_Ratio_5D,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Return_Mean_10D_Pct,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Return_Std_10D_Pct,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Positive_Return_Ratio_10D,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Return_Mean_20D_Pct,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Return_Std_20D_Pct,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Positive_Return_Ratio_20D,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Return_Mean_60D_Pct,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Return_Std_60D_Pct,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Positive_Return_Ratio_60D,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Momentum_Acceleration_5_20,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Momentum_Acceleration_10_60,Momentum/Returns,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+ATR_Pct,Volatility,ATR/Close*100,YES,NO
+MACD_Pct,Price Structure,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+MACD_Histogram_Pct,Price Structure,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+EMA_12_26_Spread_Pct,Trend,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+SMA_7_30_Spread_Pct,Trend,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+SMA_30_200_Spread_Pct,Trend,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Price_vs_SMA_7_Pct,Trend,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Price_vs_SMA_14_Pct,Trend,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Price_vs_SMA_30_Pct,Trend,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Price_vs_SMA_200_Pct,Trend,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+BB_Width_Pct,Price Structure,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+BB_Position,Price Structure,(Close-BB_Lower)/(BB_Upper-BB_Lower),YES,NO
+Daily_Range_Pct,Price Structure,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Candle_Body_Pct,Price Structure,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Gap_From_Prev_Close_Pct,Price Structure,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Close_Location_In_Daily_Range,Price Structure,(Close-Low)/(High-Low); 0.5 when High=Low,YES,NO
+Price_Position_20D,Price Structure,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Drawdown_From_20D_High_Pct,Price Structure,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Distance_From_20D_Low_Pct,Price Structure,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Price_Position_60D,Price Structure,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Drawdown_From_60D_High_Pct,Price Structure,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Distance_From_60D_Low_Pct,Price Structure,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Trend_Slope_10D_PctPerDay,Trend,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Trend_Slope_20D_PctPerDay,Trend,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Trend_Slope_60D_PctPerDay,Trend,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Volatility_Relative_60D,Volatility,Volatility / trailing 60-session median Volatility,YES,NO
+ATR_Pct_Relative_60D,Volatility,ATR_Pct / trailing 60-session median ATR_Pct,YES,NO
+RSI_Distance_From_50,Regime,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+RSI_Overbought_Flag,Regime,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+RSI_Oversold_Flag,Regime,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Trend_Up_Flag,Trend,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Trend_Down_Flag,Trend,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+High_Volatility_Flag,Volatility,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+High_ATR_Flag,Volatility,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Strong_Positive_Momentum_Flag,Regime,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Strong_Negative_Momentum_Flag,Regime,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Zero_Volume_Flag,Volume,1 if Volume<=0 else 0,YES,NO
+Log1p_Volume,Volume,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Log1p_Volume_Change_1D,Volume,"log1p(Volume_t)-log1p(Volume_t-1), defined when Volume is zero",YES,NO
+Volume_vs_Median20,Volume,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Nonzero_Volume_Ratio_20D,Volume,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+DayOfWeek_Sin,Calendar,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+DayOfWeek_Cos,Calendar,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Month_Sin,Calendar,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO
+Month_Cos,Calendar,Causal current/trailing transformation; see feature name and Stage 8 report.,YES,NO

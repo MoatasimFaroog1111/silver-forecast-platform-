@@ -1,0 +1,9 @@
+{
+  "status":"PASS",
+  "stage":"Labeled Dataset",
+  "horizons":[1,2,3,7,14,30],
+  "horizon_semantics":"Each D means the N-th subsequent observation/trading session in this daily market dataset, not N calendar days. This avoids fabricating values on weekends/holidays.",
+  "model_ready_common_dataset":{"rows":2283,"columns":53,"rows_removed_from_tail":30,"reason":"Last 30 observations cannot have a verified 30-session future target."},
+  "original_feature_cells_changed":0,
+  "leakage_controls":["Original feature columns were preserved exactly.","Target values are generated only from Close at row i+h.","Target dates are stored explicitly for auditability.","No interpolation or synthetic future prices were created.","Rows without real future observations remain blank in the full labeled dataset.","The common model-ready dataset keeps only rows with all six real targets."]
+}

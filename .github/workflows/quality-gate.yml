@@ -1,0 +1,48 @@
+name: Quality Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install 'pytest>=8.4,<9' 'httpx>=0.28,<1'
+
+      - name: Restore exact runtime artifacts
+        run: python -m silver_forecast.platform_configuration.restore_runtime_artifacts
+
+      - name: Run tests
+        run: pytest
+
+      - name: Build Docker image
+        run: docker build -t silver-forecast-platform:ci .
+
+      - name: Smoke test container
+        run: |
+          docker run -d --rm --name silver-forecast-ci -p 18000:8000 silver-forecast-platform:ci
+          trap 'docker logs silver-forecast-ci || true; docker stop silver-forecast-ci || true' EXIT
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:18000/health >/tmp/health.json; then
+              cat /tmp/health.json
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1

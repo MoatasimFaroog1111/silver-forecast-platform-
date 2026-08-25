@@ -1,0 +1,100 @@
+Feature,Status,Reason
+Adj Close,DROP,Exact duplicate of Close.
+Close,KEEP,Selected
+High,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+Low,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+Open,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+Volume,DROP,Raw volume scale replaced by log/ratio/quality features.
+Daily_Return,KEEP,Selected
+Volatility,KEEP,Selected
+SMA_7,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+SMA_14,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+SMA_30,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+SMA_200,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+EMA_12,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+EMA_26,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+BB_Middle,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+BB_Upper,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+BB_Lower,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+RSI,KEEP,Selected
+MACD,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+Signal_Line,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+MACD_Histogram,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+High_Low,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+High_Close,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+Low_Close,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+TR,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+ATR,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+Close_Lag_1,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+Close_Lag_2,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+Close_Lag_3,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+Close_Lag_5,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+Close_Lag_7,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+Close_Lag_14,DROP,Raw price-scale representation replaced by Close plus normalized/return/structure features.
+Volume_MA,DROP,Raw volume scale replaced by log/ratio/quality features.
+Volume_Ratio,KEEP,Selected
+Return_3D_Pct,KEEP,Selected
+Return_5D_Pct,KEEP,Selected
+Return_10D_Pct,KEEP,Selected
+Return_20D_Pct,KEEP,Selected
+Return_60D_Pct,KEEP,Selected
+Log_Return_1D,DROP,Almost perfectly correlated with Daily_Return; keep percentage return.
+Return_Mean_5D_Pct,DROP,Redundant with Return_5D_Pct.
+Return_Std_5D_Pct,KEEP,Selected
+Positive_Return_Ratio_5D,KEEP,Selected
+Return_Mean_10D_Pct,DROP,Redundant with Return_10D_Pct.
+Return_Std_10D_Pct,KEEP,Selected
+Positive_Return_Ratio_10D,KEEP,Selected
+Return_Mean_20D_Pct,DROP,Redundant with Return_20D_Pct.
+Return_Std_20D_Pct,KEEP,Selected
+Positive_Return_Ratio_20D,KEEP,Selected
+Return_Mean_60D_Pct,DROP,Redundant with Return_60D_Pct.
+Return_Std_60D_Pct,KEEP,Selected
+Positive_Return_Ratio_60D,KEEP,Selected
+Momentum_Acceleration_5_20,KEEP,Selected
+Momentum_Acceleration_10_60,KEEP,Selected
+ATR_Pct,KEEP,Selected
+MACD_Pct,KEEP,Selected
+MACD_Histogram_Pct,KEEP,Selected
+EMA_12_26_Spread_Pct,DROP,Duplicate of MACD_Pct.
+SMA_7_30_Spread_Pct,KEEP,Selected
+SMA_30_200_Spread_Pct,KEEP,Selected
+Price_vs_SMA_7_Pct,KEEP,Selected
+Price_vs_SMA_14_Pct,KEEP,Selected
+Price_vs_SMA_30_Pct,KEEP,Selected
+Price_vs_SMA_200_Pct,KEEP,Selected
+BB_Width_Pct,KEEP,Selected
+BB_Position,KEEP,Selected
+Daily_Range_Pct,KEEP,Selected
+Candle_Body_Pct,KEEP,Selected
+Gap_From_Prev_Close_Pct,KEEP,Selected
+Close_Location_In_Daily_Range,KEEP,Selected
+Price_Position_20D,KEEP,Selected
+Drawdown_From_20D_High_Pct,KEEP,Selected
+Distance_From_20D_Low_Pct,KEEP,Selected
+Price_Position_60D,KEEP,Selected
+Drawdown_From_60D_High_Pct,KEEP,Selected
+Distance_From_60D_Low_Pct,KEEP,Selected
+Trend_Slope_10D_PctPerDay,KEEP,Selected
+Trend_Slope_20D_PctPerDay,KEEP,Selected
+Trend_Slope_60D_PctPerDay,KEEP,Selected
+Volatility_Relative_60D,KEEP,Selected
+ATR_Pct_Relative_60D,KEEP,Selected
+RSI_Distance_From_50,DROP,Perfect affine transform of RSI.
+RSI_Overbought_Flag,KEEP,Selected
+RSI_Oversold_Flag,KEEP,Selected
+Trend_Up_Flag,KEEP,Selected
+Trend_Down_Flag,KEEP,Selected
+High_Volatility_Flag,KEEP,Selected
+High_ATR_Flag,KEEP,Selected
+Strong_Positive_Momentum_Flag,KEEP,Selected
+Strong_Negative_Momentum_Flag,KEEP,Selected
+Zero_Volume_Flag,KEEP,Selected
+Log1p_Volume,KEEP,Selected
+Log1p_Volume_Change_1D,KEEP,Selected
+Volume_vs_Median20,KEEP,Selected
+Nonzero_Volume_Ratio_20D,KEEP,Selected
+DayOfWeek_Sin,KEEP,Selected
+DayOfWeek_Cos,KEEP,Selected
+Month_Sin,KEEP,Selected
+Month_Cos,KEEP,Selected

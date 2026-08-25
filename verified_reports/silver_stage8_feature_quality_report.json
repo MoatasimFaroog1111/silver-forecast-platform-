@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "stage": "Advanced Feature Engineering",
+  "source_rows": 2313,
+  "new_features_created": 65,
+  "enhanced_columns": 118,
+  "full_enhanced_rows": 2313,
+  "model_ready_rows": 2223,
+  "model_ready_start": "2017-02-08",
+  "model_ready_end": "2025-12-09",
+  "rows_excluded_from_ready": 90,
+  "expected_exclusion_reason": "60-session feature warm-up at beginning + 30-session target tail; no extra row loss from zero-volume or zero-range days.",
+  "zero_volume_rows_preserved": 141,
+  "zero_range_rows_handled_neutrally": 410,
+  "causality_prefix_audit": {"cutoffs":[500,1000,1500,2000],"mismatches":0,"max_abs_difference":0.0},
+  "target_columns_used_in_feature_formulas": false,
+  "future_shift_or_centered_window_used": false,
+  "high_correlation_pairs_abs_ge_0_995_pretest": 39,
+  "binary_regime_features": ["RSI_Overbought_Flag","RSI_Oversold_Flag","Trend_Up_Flag","Trend_Down_Flag","High_Volatility_Flag","High_ATR_Flag","Strong_Positive_Momentum_Flag","Strong_Negative_Momentum_Flag","Zero_Volume_Flag"],
+  "sha256": {"full":"b47d08eddbc5721c232fd8ac68729ac2ca68ce61f6a0be08374daff1a6e2c491","ready":"f6470d7403801f098d0021a475bab07808efaf98f77d8014d1373c78048c430e"}
+}

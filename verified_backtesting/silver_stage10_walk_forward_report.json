@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "stage": "Stage 10 - Purged Walk-Forward Backtesting",
+  "method": {
+    "folds": 6,
+    "validation_rows_per_fold": 160,
+    "purge_sessions": 30,
+    "shuffle": false,
+    "training_window": "expanding",
+    "fold_boundaries": [
+      {"fold":1,"train_rows":690,"train_start":"2017-02-08","train_end":"2019-11-05","purge_sessions":30,"validation_rows":160,"validation_start":"2019-12-19","validation_end":"2020-08-07","30D_target_crossings":0},
+      {"fold":2,"train_rows":950,"train_start":"2017-02-08","train_end":"2020-11-16","purge_sessions":30,"validation_rows":160,"validation_start":"2020-12-31","validation_end":"2021-08-19","30D_target_crossings":0},
+      {"fold":3,"train_rows":1210,"train_start":"2017-02-08","train_end":"2021-11-29","purge_sessions":30,"validation_rows":160,"validation_start":"2022-01-12","validation_end":"2022-08-31","30D_target_crossings":0},
+      {"fold":4,"train_rows":1470,"train_start":"2017-02-08","train_end":"2022-12-09","purge_sessions":30,"validation_rows":160,"validation_start":"2023-01-26","validation_end":"2023-09-14","30D_target_crossings":0},
+      {"fold":5,"train_rows":1730,"train_start":"2017-02-08","train_end":"2023-12-22","purge_sessions":30,"validation_rows":160,"validation_start":"2024-02-08","validation_end":"2024-09-26","30D_target_crossings":0},
+      {"fold":6,"train_rows":1990,"train_start":"2017-02-08","train_end":"2025-01-07","purge_sessions":30,"validation_rows":160,"validation_start":"2025-02-21","validation_end":"2025-10-08","30D_target_crossings":0}
+    ]
+  },
+  "data": {"rows":2223,"date_start":"2017-02-08","date_end":"2025-12-09","selected_features":63},
+  "evaluation": {"horizons_sessions":[1,2,3,7,14,30],"trained_model_families":9,"baseline":"Naive_LastClose","fold_model_evaluations":360,"metrics":["MAE","RMSE","MAPE","R2","Directional Accuracy"]},
+  "anti_leakage": {"30D_target_crossings_total":0,"shuffle_used":false,"stage9_full_fit_artifacts_used_inside_folds":false,"models_refit_from_scratch_per_fold":true,"fresh_final_holdout_consumed":false},
+  "important_result": "Naive Last Close remains the lowest mean price MAE at every horizon. No ML model meets the rule to replace it as price champion. The shortlisted ML models proceed only as challengers for a guarded ensemble.",
+  "next_stage": "Build a new guarded ensemble using only Stage 10 walk-forward evidence; do not use a fresh holdout for weighting."
+}
