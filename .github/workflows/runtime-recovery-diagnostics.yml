@@ -1,0 +1,124 @@
+name: Runtime Recovery Diagnostics
+
+on:
+  push:
+    branches:
+      - fix/railway-runtime-recovery
+    paths:
+      - .github/workflows/runtime-recovery-diagnostics.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose-runtime-bundles:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout recovery branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch historical bootstrap branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin materialize-v8:refs/remotes/origin/materialize-v8
+          rm -rf /tmp/bootstrap
+          git worktree add --detach /tmp/bootstrap origin/materialize-v8
+
+      - name: Test every historical bootstrap bundle
+        shell: bash
+        run: |
+          set -u
+          shopt -s nullglob
+
+          valid_count=0
+          for bundle in \
+            bootstrap_bundle_v3 \
+            bootstrap_bundle_v4 \
+            bootstrap_bundle_v5 \
+            bootstrap_bundle_v6 \
+            bootstrap_bundle_v7 \
+            bootstrap_parts
+          do
+            dir="/tmp/bootstrap/${bundle}"
+            echo ""
+            echo "============================================================"
+            echo "BUNDLE: ${bundle}"
+            echo "============================================================"
+
+            if [[ ! -d "${dir}" ]]; then
+              echo "STATUS: directory missing"
+              continue
+            fi
+
+            mapfile -t parts < <(find "${dir}" -maxdepth 1 -type f -name 'part_*.txt' -printf '%f\n' | sort -V)
+            if (( ${#parts[@]} == 0 )); then
+              echo "STATUS: no part files"
+              continue
+            fi
+
+            printf 'PARTS (%d):\n' "${#parts[@]}"
+            printf '  %s\n' "${parts[@]}"
+
+            b64="/tmp/${bundle}.tar.gz.b64"
+            gz="/tmp/${bundle}.tar.gz"
+            : > "${b64}"
+            for part in "${parts[@]}"; do
+              cat "${dir}/${part}" >> "${b64}"
+            done
+
+            echo "B64_BYTES=$(wc -c < "${b64}")"
+            echo "B64_SHA256=$(sha256sum "${b64}" | awk '{print $1}')"
+
+            if ! base64 --decode "${b64}" > "${gz}" 2>"/tmp/${bundle}.base64.err"; then
+              echo "STATUS: INVALID_BASE64"
+              cat "/tmp/${bundle}.base64.err" || true
+              continue
+            fi
+
+            echo "GZ_BYTES=$(wc -c < "${gz}")"
+            echo "GZ_SHA256=$(sha256sum "${gz}" | awk '{print $1}')"
+
+            if ! gzip -t "${gz}" 2>"/tmp/${bundle}.gzip.err"; then
+              echo "STATUS: INVALID_GZIP"
+              cat "/tmp/${bundle}.gzip.err" || true
+              continue
+            fi
+
+            if ! tar -tzf "${gz}" > "/tmp/${bundle}.listing" 2>"/tmp/${bundle}.tar.err"; then
+              echo "STATUS: INVALID_TAR"
+              cat "/tmp/${bundle}.tar.err" || true
+              continue
+            fi
+
+            echo "STATUS: VALID_TAR_GZIP"
+            echo "TOP_ENTRIES:"
+            head -n 40 "/tmp/${bundle}.listing"
+
+            extract_dir="/tmp/extracted-${bundle}"
+            rm -rf "${extract_dir}"
+            mkdir -p "${extract_dir}"
+            tar -xzf "${gz}" -C "${extract_dir}"
+
+            echo "RECOVERY_CAPABILITIES:"
+            find "${extract_dir}" -type f \
+              \( -path '*/silver_forecast/model_registry/rebuild_persisted_forecast_models.py' \
+              -o -path '*/historical_market_data/silver_ohlcv_usd_per_kg.csv' \
+              -o -name '*D__CatBoost_Return.joblib' \
+              -o -name 'requirements.txt' \
+              -o -name 'pyproject.toml' \) \
+              -print | sort || true
+
+            valid_count=$((valid_count + 1))
+          done
+
+          echo ""
+          echo "VALID_BUNDLE_COUNT=${valid_count}"
+          if (( valid_count == 0 )); then
+            echo "No historical bootstrap bundle is structurally recoverable."
+            exit 1
+          fi
