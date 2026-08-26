@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+"""Materialize checksum-verified runtime bundle parts before strict restoration."""
+
 import hashlib
 import json
 import os
