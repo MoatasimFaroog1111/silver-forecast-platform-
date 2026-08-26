@@ -14,7 +14,8 @@ COPY requirements.txt ./
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 COPY . .
-RUN python -m silver_forecast.platform_configuration.restore_runtime_artifacts
+RUN python -m silver_forecast.platform_configuration.materialize_runtime_parts \
+    && python -m silver_forecast.platform_configuration.restore_runtime_artifacts
 
 EXPOSE 8000
 
