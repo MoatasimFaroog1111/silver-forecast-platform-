@@ -25,6 +25,9 @@ jobs:
           pip install -r requirements.txt
           pip install 'pytest>=8.4,<9' 'httpx>=0.28,<1'
 
+      - name: Materialize exact runtime repair parts
+        run: python -m silver_forecast.platform_configuration.materialize_runtime_parts
+
       - name: Restore exact runtime artifacts
         run: python -m silver_forecast.platform_configuration.restore_runtime_artifacts
 
