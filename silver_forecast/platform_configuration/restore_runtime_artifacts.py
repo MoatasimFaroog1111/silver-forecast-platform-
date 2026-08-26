@@ -22,9 +22,10 @@ def restore_runtime_artifacts() -> None:
     count = int(manifest["part_count"])
     regular_size = int(manifest["part_size"])
     last_size = int(manifest["last_part_size"])
+    part_prefix = str(manifest.get("part_prefix", "forecast_runtime_payload.part"))
     encoded_parts: list[bytes] = []
     for index in range(count):
-        path = BUNDLE_DIR / f"forecast_runtime_payload.part{index:03d}.b64"
+        path = BUNDLE_DIR / f"{part_prefix}{index:03d}.b64"
         data = path.read_bytes()
         expected_size = last_size if index == count - 1 else regular_size
         if len(data) != expected_size:
