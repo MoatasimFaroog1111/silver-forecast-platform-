@@ -1,0 +1,18 @@
+{
+  "format": "runtime-part-repair-v1",
+  "repairs": [
+    {
+      "output": "runtime_v2.part031.b64",
+      "size": 12000,
+      "sha256": "2f78baba38e5c740267be32843c8832844d0be4abcdceff27d91157674a468d2",
+      "fragments": [
+        {"name": "runtime_v2.part031a.b64", "size": 4000, "sha256": "8450973bae75608b805342ed286c22cea0b98addb7348521a7fae7106a35d635"},
+        {"name": "runtime_v2.part031b.b64", "size": 4000, "sha256": "5ff576d9a7f99fe1ccd2284a603c0b244e823825ad57e9039e143136aa574ab3"},
+        {"name": "runtime_v2.part031c1.b64", "size": 1000, "sha256": "9dba18ec23141cf72021922b5f4828b5216e07d19ba32700bccc8c898bcbda7e"},
+        {"name": "runtime_v2.part031c2.b64", "size": 1000, "sha256": "5130b0eed17d268a291acd0369a8458906ed7fc0da084f88e380cce94a3dd7e9"},
+        {"name": "runtime_v2.part031c3.b64", "size": 1000, "sha256": "d45ff1b7acfb0b295aa7e60127a453393dcccc5adb6e8fc18fdc6cd289b39f57"},
+        {"name": "runtime_v2.part031c4.b64", "size": 1000, "sha256": "32678e8c8712f10b3fcae4e1bf3be11f45c4069876e469312000e72c40a7e84b"}
+      ]
+    }
+  ]
+}
