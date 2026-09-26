@@ -1,0 +1,48 @@
+# =============================================================================
+#  Coolify variant of the stack.
+#
+#  Coolify runs its own reverse proxy (Traefik) on host ports 80/443, so this
+#  file exposes NO host ports. Coolify's proxy routes the configured domain to
+#  `app:8000` (configure the domain in Coolify's UI / docker_compose_domains).
+#
+#  The app serves both the FastAPI (port 8000: /health, /api/*, /docs) and the
+#  static prediction portal (mounted at `/`).
+# =============================================================================
+
+name: silver-forecast
+
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      PORT: "8000"
+      DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:change-me@postgres:5432/silver}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks: [app]
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+      POSTGRES_DB: ${POSTGRES_DB:-silver}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-silver}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    networks: [app]
+
+volumes:
+  pgdata:
+
+networks:
+  app:
+    driver: bridge
