@@ -1,0 +1,35 @@
+name: Branch Cleanup
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  delete-stale-runtime-repair-branches:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Delete retired runtime-repair branches
+        run: |
+          set -euo pipefail
+          branches=(
+            fix/railway-exact-runtime-restore
+            fix/railway-runtime-recovery
+            fix/runtime-part031-exact
+            materialize-v8
+            runtime-payload-staging
+          )
+          for branch in "${branches[@]}"; do
+            ref=$(printf 'heads/%s' "$branch" | jq -Rr @uri)
+            if gh api "repos/${{ github.repository }}/git/refs/$ref" >/dev/null 2>&1; then
+              gh api --method DELETE "repos/${{ github.repository }}/git/refs/$ref"
+              echo "Deleted $branch"
+            else
+              echo "Branch $branch not found (already deleted)"
+            fi
+          done

@@ -1,0 +1,113 @@
+name: Daily Market Data
+
+on:
+  schedule:
+    # 23:30 UTC, Tuesday-Saturday: captures the Monday-Friday sessions.
+    - cron: "30 23 * * 2-6"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: daily-market-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install 'yfinance>=0.2,<2'
+
+      - name: Materialize exact runtime repair parts
+        run: python -m silver_forecast.platform_configuration.materialize_runtime_parts
+
+      - name: Restore exact runtime artifacts
+        run: python -m silver_forecast.platform_configuration.restore_runtime_artifacts
+
+      - name: Fetch and merge daily silver prices (USD/kg)
+        run: >
+          python -m silver_forecast.market_history.update_market_history
+          --csv historical_market_data/silver_ohlcv_usd_per_kg.csv
+          --pending runtime_state/pending_observations.json
+
+      - name: Rebuild runtime payload bundle
+        run: python -m silver_forecast.platform_configuration.rebuild_runtime_payload
+
+      - name: Verify rebuilt bundle
+        run: python -m silver_forecast.platform_configuration.restore_runtime_artifacts
+
+      - name: Commit and push updated history
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add historical_market_data/silver_ohlcv_usd_per_kg.csv \
+                  runtime_artifacts \
+                  runtime_state/pending_observations.json
+          if git diff --staged --quiet; then
+            echo "No market data changes to commit."
+          else
+            git commit -m "data: daily silver OHLCV update (USD/kg) [skip ci]"
+            git push
+          fi
+
+      - name: Push observations to production API
+        env:
+          HAS_API_URL: ${{ secrets.PRODUCTION_API_URL != '' }}
+          PRODUCTION_API_URL: ${{ secrets.PRODUCTION_API_URL }}
+          MARKET_OBSERVATIONS_TOKEN: ${{ secrets.MARKET_OBSERVATIONS_TOKEN }}
+        if: env.HAS_API_URL == 'true'
+        run: |
+          count=$(jq '.observations | length' runtime_state/pending_observations.json)
+          echo "Pushing $count observation(s) to the production API..."
+          jq -c '.observations[]' runtime_state/pending_observations.json | while read -r payload; do
+            args=(-X POST "${PRODUCTION_API_URL%/}/api/market/observations"
+              -H 'Content-Type: application/json' --fail --silent --show-error)
+            if [ -n "$MARKET_OBSERVATIONS_TOKEN" ]; then
+              args+=(-H "Authorization: Bearer $MARKET_OBSERVATIONS_TOKEN")
+            fi
+            curl "${args[@]}" -d "$payload"
+          done
+
+  alert:
+    needs: update
+    if: ${{ failure() }}
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Open data quality alert issue
+        run: |
+          repo="${{ github.repository }}"
+          run_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          body="The daily silver market data pipeline failed. Either the fetch or the data quality gate did not pass, so the packaged CSV was **not** modified.
+
+          Inspect the run: ${run_url}
+
+          _After fixing the cause, close this issue; a new alert will be opened if the next run fails again._"
+          existing=$(gh api "repos/${repo}/issues?state=open&labels=data-quality-alert" --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            echo "Commenting on existing alert issue #${existing}"
+            gh api "repos/${repo}/issues/${existing}/comments" -f body="$body"
+          else
+            gh api "repos/${repo}/issues" \
+              -f title="Data quality alert: daily market data pipeline failed" \
+              -f body="$body" \
+              -F 'labels[]=data-quality-alert'
+          fi
