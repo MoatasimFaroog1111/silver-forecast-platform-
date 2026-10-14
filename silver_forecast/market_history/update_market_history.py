@@ -101,7 +101,7 @@ def merge_observations_text(csv_text: str, new_rows: list[dict[str, Any]]) -> tu
         applied[row_date] = row
 
     merged_dates = sorted(existing.keys() | incoming.keys())
-    body = [incoming.get(day, existing[day]) for day in merged_dates]
+    body = [incoming[day] if day in incoming else existing[day] for day in merged_dates]
     return header + "\n" + "\n".join(body) + "\n", [applied[day] for day in sorted(applied.keys())]
 
 

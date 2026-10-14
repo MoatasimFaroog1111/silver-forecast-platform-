@@ -37,7 +37,7 @@ def recent_rows(as_of, sessions=20, close=1000.0, volume=0):
 def test_conversion_factor():
     assert abs(USD_PER_TROY_OUNCE_TO_USD_PER_KG - 32.1507466) < 1e-6
     assert abs(usd_per_troy_ounce_to_usd_per_kg(TROY_OUNCE_IN_GRAMS) - 1000.0) < 1e-6
-    assert abs(usd_per_troy_ounce_to_usd_per_kg(50.0) - 50.0 * 32.1507466) < 1e-6
+    assert abs(usd_per_troy_ounce_to_usd_per_kg(50.0) - 50.0 * USD_PER_TROY_OUNCE_TO_USD_PER_KG) < 1e-9
 
 
 def test_clean_recent_history_passes():
